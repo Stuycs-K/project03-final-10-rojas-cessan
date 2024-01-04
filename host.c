@@ -15,13 +15,14 @@ void server_logic(int client_socket){
   if (r_check < 0){
     printf("BCR error %d: %s\n", errno, strerror(errno));
   }
-  printf("recieved: %s\n", recieved);
+  printf("recieved: %s", recieved);
 
   //Send
    char input[BUFFER_SIZE];
-  printf("This is a prompt:\n");
+  printf("Type here:");
+  fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
-  int w_check = write(client_socket, input, BUFFER_SIZE);
+  int w_check = send(client_socket, input, BUFFER_SIZE, 0);
   if (w_check < 0){
     printf("FSW error %d: %s\n", errno, strerror(errno));
   }
@@ -36,7 +37,7 @@ int main(int argc, char *argv[] ) {
   int client_socket;
   //listen_socket = server_setup();//happens once
     client_socket = server_tcp_handshake(listen_socket);//happens a lot
-    printf("server handshake completed");
+    printf("server handshake completed\n");
     while (1){
         server_logic(client_socket);
     }

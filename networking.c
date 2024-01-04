@@ -4,7 +4,7 @@
  *return the to_server socket descriptor
  *blocks until connection is made.*/
 int client_tcp_handshake(char * server_address) {
-  printf("RUNNING CLIENT\n");
+  //printf("RUNNING CLIENT\n");
 
   int serverd;//store the socket descriptor here
   //create the socket
@@ -12,7 +12,7 @@ int client_tcp_handshake(char * server_address) {
   if (serverd == -1){
     printf("SD error %d: %s\n", errno, strerror(errno));
   }
-  printf("created socket\n");
+  //printf("created socket\n");
   //getaddrinfo
   struct addrinfo * hints, * results;
   hints = calloc(1,sizeof(struct addrinfo));
@@ -24,8 +24,7 @@ int client_tcp_handshake(char * server_address) {
   if (g_check != 0){
     printf("GAR error %d: %s\n", errno, strerror(errno));
   }
-  printf("30\n");
-  printf("gotaddrinfo on %s \n", server_address);
+  //printf("gotaddrinfo on %s \n", server_address);
 
   // //this code should get around the address in use error
   // int yes = 1;
@@ -42,7 +41,7 @@ int client_tcp_handshake(char * server_address) {
   if (c_check == -1){
     printf("CONCT error %d: %s\n", errno, strerror(errno));
   }
-  printf("connected to server: %d\n", c_check);
+  printf("connected to server\n");
   free(hints);
   freeaddrinfo(results);
 
@@ -54,13 +53,13 @@ int client_tcp_handshake(char * server_address) {
  *blocks until connection is made.
  */
 int server_tcp_handshake(int listen_socket){
-    printf("RUNNING SERVER HANDSHAKE\n");
+    //printf("RUNNING SERVER HANDSHAKE\n");
     int client_socket;
     //accept the client connection
     socklen_t sock_size;
     struct sockaddr_storage client_address;
     sock_size = sizeof(client_address);
-    printf("pre accept\n");
+    //printf("pre accept\n");
     client_socket = accept(listen_socket,(struct sockaddr *)&client_address, &sock_size);
     if (client_socket == -1){
       printf("ACCEPT error %d: %s\n", errno, strerror(errno));
@@ -74,7 +73,7 @@ int server_tcp_handshake(int listen_socket){
 * Place the socket in a listening state.
 */
 int server_setup() {
-  printf("RUNNING SERVER SETUP\n");
+  //printf("RUNNING SERVER SETUP\n");
   //setup structs for getaddrinfo
   struct addrinfo * hints, * results;
   hints = calloc(1, sizeof(struct addrinfo));
@@ -93,14 +92,14 @@ int server_setup() {
   if (g_check != 0){
     printf("GAR error %d: %s\n", errno, strerror(errno));
   }
-  printf("getaddrinfo\n");
+  //printf("getaddrinfo\n");
   //create the socket
   int clientd;//store the socket descriptor here
   int sd = socket(results->ai_family, results->ai_socktype, 0);
   if (sd == -1){
     printf("SD error %d: %s\n", errno, strerror(errno));
   }
-	printf("created socket: %d\n", sd);
+	//printf("created socket: %d\n", sd);
 	clientd = sd;
   //this code should get around the address in use error
   int yes = 1;
@@ -119,12 +118,12 @@ int server_setup() {
   if (l_check == -1){
     printf("LISTEN error %d: %s\n", errno, strerror(errno));
   }
-  printf("set socket to listen state\n");
+  //printf("set socket to listen state\n");
 
   //free the structs used by getaddrinfo
   free(hints);
   freeaddrinfo(results);
-  printf("free structs\n");
+  //printf("free structs\n");
   return clientd;
 }
 
