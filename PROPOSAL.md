@@ -20,9 +20,9 @@ The chat program will mainly utilize the following concepts from class: working 
     
 # Intended pacing:
 
-January 8: Basic chat function between two/multiple users
-January 9: User interface 
-January 10: Chat log
-January 12: Add-ons like sending files/images
-January 15: Finishing touches like colors and backgrounds
+- January 8: Basic chat function between two/multiple users
+- January 9: User interface 
+- January 10: Chat log
+- January 12: Add-ons like sending files/images
+- January 15: Finishing touches like colors and backgrounds
 
