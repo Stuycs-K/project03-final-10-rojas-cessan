@@ -137,19 +137,35 @@ void err(int i, char*message){
 
 //sending messages
 
-void sendmessage(int socket){
-  //Send
+int sendmessage(int socket){
+  //prompt
   char input[BUFFER_SIZE];
   printf("Type here:");
   fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
+  //.def
+  if (strncmp(input, DISCONNECT, 2)==0){
+    printf("you have left the chat\n");
+    int s_check = send(socket, input, BUFFER_SIZE, 0);
+    err(s_check, "Sending\n");
+    return -1;
+  }
+  //send
   int s_check = send(socket, input, BUFFER_SIZE, 0);
-  err(s_check, "Server Sending\n");
+  err(s_check, "Sending\n");
+  return 0;
 }
 
-void recvmessage(int socket){
+int recvmessage(int socket){
   char recieved[BUFFER_SIZE];
   int r_check = recv(socket, recieved, BUFFER_SIZE, 0);
-  err(r_check, "Server Recving\n");
+  err(r_check, "Recving\n");
+  //disconnect
+  if (strncmp(recieved, DISCONNECT, 2)==0){
+    printf("user has left the chat\n");
+    return -1;
+  }
+  //print
   printf("recieved: %s", recieved);
+  return 0;
 }

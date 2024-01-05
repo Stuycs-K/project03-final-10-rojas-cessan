@@ -22,7 +22,10 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
-      sendmessage(client_socket);
+      int dc_check = sendmessage(client_socket);
+      if (dc_check < 0){
+        exit(0);
+      }
     }
     close(client_socket);
     close(listen_socket);
@@ -30,7 +33,10 @@ int main(int argc, char *argv[] ) {
   }
   else{//recv
     while(1){
-      recvmessage(client_socket);
+      int dc_check = recvmessage(client_socket);
+      if (dc_check < 0){
+        exit(0);
+      }
     }
     close(client_socket);
     close(listen_socket);

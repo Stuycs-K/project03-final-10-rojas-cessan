@@ -24,14 +24,20 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
-      sendmessage(server_socket);
+      int dc_check = sendmessage(server_socket);
+      if (dc_check < 0){
+        exit(0);
+      }
     }
     close(server_socket);
     exit(0);
   }
   else{//recv
     while(1){
-      recvmessage(server_socket);
+      int dc_check = recvmessage(server_socket);
+      if (dc_check < 0){
+        exit(0);
+      }
     }
     close(server_socket);
     exit(0);
