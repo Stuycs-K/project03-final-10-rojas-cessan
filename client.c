@@ -25,7 +25,7 @@ int main(int argc, char *argv[] ) {
   else if (p==0){//send
     while(1){
       int dc_check = sendmessage(server_socket);
-      if (dc_check < 0){
+      if ((dc_check < 0)||(getppid()==1)){
         exit(0);
       }
     }
@@ -35,7 +35,7 @@ int main(int argc, char *argv[] ) {
   else{//recv
     while(1){
       int dc_check = recvmessage(server_socket);
-      if (dc_check < 0){
+      if (dc_check<0){
         exit(0);
       }
     }

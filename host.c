@@ -23,7 +23,7 @@ int main(int argc, char *argv[] ) {
   else if (p==0){//send
     while(1){
       int dc_check = sendmessage(client_socket);
-      if (dc_check < 0){
+      if ((dc_check < 0)||(getppid()==1)){
         exit(0);
       }
     }
