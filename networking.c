@@ -133,3 +133,23 @@ void err(int i, char*message){
   	exit(1);
   }
 }
+
+
+//sending messages
+
+void sendmessage(int socket){
+  //Send
+  char input[BUFFER_SIZE];
+  printf("Type here:");
+  fflush(stdout);
+  fgets(input, BUFFER_SIZE, stdin);
+  int s_check = send(socket, input, BUFFER_SIZE, 0);
+  err(s_check, "Server Sending\n");
+}
+
+void recvmessage(int socket){
+  char recieved[BUFFER_SIZE];
+  int r_check = recv(socket, recieved, BUFFER_SIZE, 0);
+  err(r_check, "Server Recving\n");
+  printf("recieved: %s", recieved);
+}

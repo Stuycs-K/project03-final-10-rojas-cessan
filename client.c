@@ -1,38 +1,39 @@
 #include "networking.h"
 
-void clientLogic(int server_socket){
-// Prompts the user for a string.
-  char input[BUFFER_SIZE];
-  printf("Type here:");
-  fflush(stdout);
-  fgets(input, BUFFER_SIZE, stdin);
-  // Send the user input to the client
-    int w_check = send(server_socket, input, BUFFER_SIZE, 0);
-    if (w_check < 0){
-      printf("FSW error %d: %s\n", errno, strerror(errno));
+static void sighandler( int signo ){
+    if (signo==SIGINT){
+        printf("QUITTING CLIENT\n");
+        //remove(3);
+        exit(0);
     }
-    //printf("writing to client %s\n", input);
-  // Read the modified string from the server
-    char recieved[BUFFER_SIZE];
-    int r_check = read(server_socket, recieved, BUFFER_SIZE);
-    if (r_check < 0){
-      printf("BCR error %d: %s\n", errno, strerror(errno));
-      exit(1);
-    }
-  // prints the modified string
-    printf("recieved message: %s", recieved);
-
 }
 
 int main(int argc, char *argv[] ) {
+  signal(SIGINT, sighandler);
   char* IP = "127.0.0.1";
   if(argc>1){
     IP=argv[1];
   }
   int server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
-
-  while(1){
-    clientLogic(server_socket);
+  pid_t p;
+  p = fork();
+  if (p<0){
+      printf("fork error");
+      exit(1);
+  }
+  else if (p==0){//send
+    while(1){
+      sendmessage(server_socket);
+    }
+    close(server_socket);
+    exit(0);
+  }
+  else{//recv
+    while(1){
+      recvmessage(server_socket);
+    }
+    close(server_socket);
+    exit(0);
   }
 }
