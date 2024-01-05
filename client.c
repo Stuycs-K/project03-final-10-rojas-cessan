@@ -16,6 +16,13 @@ int main(int argc, char *argv[] ) {
   }
   int server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
+
+  //username
+  char username[BUFFER_SIZE];
+  printf("Type your username here:");
+  fflush(stdout);
+  fgets(username, BUFFER_SIZE, stdin);
+
   pid_t p;
   p = fork();
   if (p<0){
@@ -24,17 +31,23 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
+      if (getppid()==1){
+        printf("Quitting PID Loop\n");
+        exit(0);
+      }
       int dc_check = sendmessage(server_socket);
-      if ((dc_check < 0)||(getppid()==1)){
+      if (dc_check < 0){
+        printf("Quitting Sending Loop\n");
         exit(0);
       }
     }
     close(server_socket);
+    printf("Quitting Child\n");
     exit(0);
   }
   else{//recv
     while(1){
-      int dc_check = recvmessage(server_socket);
+      int dc_check = recvmessage(server_socket, "other");
       if (dc_check<0){
         exit(0);
       }

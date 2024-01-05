@@ -13,6 +13,14 @@ int main(int argc, char *argv[] ) {
   int listen_socket= server_setup();//happens once
   int client_socket = server_tcp_handshake(listen_socket);//happens a lot
   printf("server handshake completed\n");
+
+  //username
+   //prompt
+  char username[BUFFER_SIZE];
+  printf("Type your username here:");
+  fflush(stdout);
+  fgets(username, BUFFER_SIZE, stdin);
+
   //multi threading
   pid_t p;
   p = fork();
@@ -22,8 +30,12 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
+      if (getppid()==1){
+        printf("Quitting PID Loop\n");
+        exit(0);
+      }
       int dc_check = sendmessage(client_socket);
-      if ((dc_check < 0)||(getppid()==1)){
+      if (dc_check < 0){
         exit(0);
       }
     }
@@ -33,7 +45,7 @@ int main(int argc, char *argv[] ) {
   }
   else{//recv
     while(1){
-      int dc_check = recvmessage(client_socket);
+      int dc_check = recvmessage(client_socket, "other"); //placeholder
       if (dc_check < 0){
         exit(0);
       }

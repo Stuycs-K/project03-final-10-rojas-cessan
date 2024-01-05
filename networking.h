@@ -23,5 +23,5 @@ int server_setup();
 int client_tcp_handshake(char*server_address);
 int server_tcp_handshake(int listen_socket);
 int sendmessage(int socket);
-int recvmessage(int socket);
+int recvmessage(int socket, char * othername);
 #endif
