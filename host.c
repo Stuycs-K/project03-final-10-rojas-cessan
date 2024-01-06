@@ -10,6 +10,8 @@ static void sighandler( int signo ){
 
 int main(int argc, char *argv[] ) {
   signal(SIGINT, sighandler);
+  printf("Waiting for connection...\n");
+
   int listen_socket= server_setup();//happens once
   int client_socket = server_tcp_handshake(listen_socket);//happens a lot
   printf("server handshake completed\n");
@@ -30,11 +32,7 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
-      if (getppid()==1){
-        printf("Quitting PID Loop\n");
-        exit(0);
-      }
-      int dc_check = sendmessage(client_socket);
+      int dc_check = recvmessage(client_socket, "other"); //placeholder
       if (dc_check < 0){
         exit(0);
       }
@@ -43,15 +41,25 @@ int main(int argc, char *argv[] ) {
     close(listen_socket);
     exit(0);
   }
-  else{//recv
+  else{//send
     while(1){
-      int dc_check = recvmessage(client_socket, "other"); //placeholder
+      int status;
+      int w_check = waitpid(p, &status, WNOHANG);
+      if (w_check != 0 ){
+        printf("Quitting Sending Loop WNOHANG\n");
+        kill(p, SIGKILL);
+        exit(0);
+      }
+
+      int dc_check = sendmessage(client_socket);
       if (dc_check < 0){
+        printf("Quitting Sending Loop\n");
+        kill(p, SIGKILL);
         exit(0);
       }
     }
-    close(client_socket);
-    close(listen_socket);
+    //close(client_socket);
+    //close(listen_socket);
     exit(0);
   }
 

@@ -14,6 +14,8 @@ int main(int argc, char *argv[] ) {
   if(argc>1){
     IP=argv[1];
   }
+  printf("Waiting for connection...\n");
+  
   int server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
 
@@ -31,28 +33,34 @@ int main(int argc, char *argv[] ) {
   }
   else if (p==0){//send
     while(1){
-      if (getppid()==1){
-        printf("Quitting PID Loop\n");
-        exit(0);
-      }
-      int dc_check = sendmessage(server_socket);
-      if (dc_check < 0){
-        printf("Quitting Sending Loop\n");
-        exit(0);
-      }
-    }
-    close(server_socket);
-    printf("Quitting Child\n");
-    exit(0);
-  }
-  else{//recv
-    while(1){
       int dc_check = recvmessage(server_socket, "other");
+      printf("dc= %d\n", dc_check);
       if (dc_check<0){
         exit(0);
       }
     }
     close(server_socket);
+    exit(0);
+  }
+  else{//recv
+    while(1){
+      int status;
+      int w_check = waitpid(p, &status, WNOHANG);
+      if (w_check == 0 ){
+        printf("Quitting Sending Loop WNOHANG\n");
+        kill(p, SIGKILL);
+        exit(0);
+      }
+
+      int dc_check = sendmessage(server_socket);
+      if (dc_check < 0){
+        printf("Quitting Sending Loop\n");
+        kill(p, SIGKILL);
+        exit(0);
+      }
+    }
+    //close(server_socket);
+    printf("Quitting Child\n");
     exit(0);
   }
 }
