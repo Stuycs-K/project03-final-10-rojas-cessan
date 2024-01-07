@@ -11,9 +11,9 @@ I started by using sockets to first establish a connection (3-way handshake). Th
 ### 2024-01-05 - finishing disconnect
 I'm still having the disconnect issue, but now it doesn't infinite loop on both host and client, it infinite loops on only client. I did this with getppid and an algorithm I wrote in my notebook. I also started username in class. At home, I finally got disconnect to work through learning to use WNOHANG and switching around the order of the threads. [40 mins]
 
-### 2024-01-06 - Brief description
-Detailed [xx mins]
+### 2024-01-06 - select WEEKEND
+Mainly tried to integrate "select" code to have multiple people in a chat. Didn't get it to work yet, still trying to understand the code. [30 mins]
 
-### 2024-01-07 - Brief description
+### 2024-01-07 - Brief description WEEKEND
 Detailed [xx mins]
 
