@@ -157,8 +157,7 @@ int sendmessage(int socket, char * username){
   //fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   
-  struct package * package;
-  //package = makepackage(username, input);
+  struct package * package = makepackage(username, input);
   //printf("usr: %s\n", package->name);
   printpackage(package);
   if (strncmp(input, DISCONNECT, 2)==0){
@@ -168,14 +167,14 @@ int sendmessage(int socket, char * username){
     return -1;
   }
   //send
-  int s_check = send(socket, input, BUFFER_SIZE, 0);
+  int s_check = send(socket, input, sizeof(struct package), 0);
   err(s_check, "Sending\n");
   //printf("You: %s", input);
   return 0;
 }
 
 int recvmessage(int socket, char * othername){
-  struct package * recieved;
+  struct package * recieved;// = calloc( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err(r_check, "Recving\n");
   //disconnect
@@ -185,7 +184,7 @@ int recvmessage(int socket, char * othername){
   }
   //print
   //printpackage(recieved);
-  int p_check = printf("%s: %s", recieved->MSG, recieved->name);
+  int p_check = printf("%s: %s", recieved->name, recieved->MSG);
   // printf("othername: %s\n", recieved->name);
   // printf("message: %s\n", recieved->MSG);
   //err(p_check, "printing\n");

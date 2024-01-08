@@ -27,4 +27,5 @@ int recvmessage(int socket, char * othername);
 
 struct package {char name[BUFFER_SIZE]; char MSG[BUFFER_SIZE];};
 struct package * makepackage(char name[], char msg[]);
+void printpackage(struct package * package);
 #endif
