@@ -18,10 +18,13 @@ int main(int argc, char *argv[] ) {
 
   //username
    //prompt
-  char username[BUFFER_SIZE];
+  char * username = malloc (BUFFER_SIZE);
   printf("Type your username here:");
   fflush(stdout);
   fgets(username, BUFFER_SIZE, stdin);
+  if (strchr(username, '\n')!=NULL){ //if token ends in newline
+    *strchr(username, '\n')='\0'; //remove newline
+  }
 
   //multi threading
   pid_t p;

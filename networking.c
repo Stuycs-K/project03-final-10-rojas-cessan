@@ -136,8 +136,7 @@ void err(int i, char*message){
 
 //PACKAGES
 //struct package {char name[BUFFER_SIZE]; char MSG[BUFFER_SIZE];};
-struct package * makepackage(char name[], char msg[]){
-  struct package * package = malloc(sizeof(struct package));
+struct package * makepackage(struct package * package, char name[], char msg[]){
   strcpy(package->name, name);
   strcpy(package->MSG, msg);
   return package;
@@ -152,14 +151,18 @@ void printpackage(struct package * package){
 int sendmessage(int socket, char * username){
   //printf("usr: %s\n", username);
   //prompt
-  char input[BUFFER_SIZE];
+  char * input = malloc(BUFFER_SIZE);
   //printf("Type here:");
   //fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
+  // if (strchr(input, '\n')!=NULL){ //if token ends in newline
+  //   *strchr(input, '\n')='\0'; //remove newline
+  // }
   
-  struct package * package = makepackage(username, input);
+  struct package * package = malloc (2 * sizeof(struct package));
+  package = makepackage(package, username, input);
   //printf("usr: %s\n", package->name);
-  printpackage(package);
+  //printpackage(package);
   if (strncmp(input, DISCONNECT, 2)==0){
     printf("You have left the chat.\n");
     int s_check = send(socket, package, sizeof(struct package), 0);
@@ -174,19 +177,20 @@ int sendmessage(int socket, char * username){
 }
 
 int recvmessage(int socket, char * othername){
-  struct package * recieved;// = calloc( sizeof(struct package));
+  struct package * recieved = malloc (2 * sizeof(struct package));
+  //recieved = makepackage(NULL, NULL);// = calloc( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err(r_check, "Recving\n");
   //disconnect
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
-    printf("%s has left the chat.\n", othername);
+    printf("%s has left the chat.\n", recieved->name);
     return -1;
   }
   //print
   //printpackage(recieved);
-  int p_check = printf("%s: %s", recieved->name, recieved->MSG);
-  // printf("othername: %s\n", recieved->name);
-  // printf("message: %s\n", recieved->MSG);
+  //int p_check = printf("%s: %s", recieved->name, recieved->MSG);
+   printf("othername: %s\n", recieved->name);
+   printf("message: %s\n", recieved->MSG);
   //err(p_check, "printing\n");
   return 0;
 }
