@@ -14,6 +14,18 @@ I'm still having the disconnect issue, but now it doesn't infinite loop on both 
 ### 2024-01-06 - select WEEKEND
 Mainly tried to integrate "select" code to have multiple people in a chat. Didn't get it to work yet, still trying to understand the code. [30 mins]
 
-### 2024-01-07 - Brief description WEEKEND
-Detailed [xx mins]
+### 2024-01-07 - structs for username WEEKEND
+I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+
+### 2024-01-07 - structs for username WEEKEND + LATE NIGHT COMMIT
+I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+
+### 2024-01-08 - structs for username WEEKEND
+I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+
+### 2024-01-09 - structs for username WEEKEND
+I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+
+### 2024-01-10 - structs for username WEEKEND
+I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
 
