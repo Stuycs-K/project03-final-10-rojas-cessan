@@ -20,12 +20,27 @@ I tried to incorporate sending structs, so that the username could be shared wit
 ### 2024-01-07 - structs for username WEEKEND + LATE NIGHT COMMIT
 I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
 
-### 2024-01-08 - structs for username WEEKEND
-I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+### 2024-01-08 - debugging structs 
+On linux, I don't recieve an error for printing a string that cannot be printed. I suspect there's an issue with memory allocation. Still, trying to debug in class. [XX mins]
 
-### 2024-01-09 - structs for username WEEKEND
-I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+### 2024-01-09 - title 
+descript. [XX mins]
 
-### 2024-01-10 - structs for username WEEKEND
-I tried to incorporate sending structs, so that the username could be shared with the others in a more organized way. It currently doesn't work. I'm getting the bad address error. [30 mins]
+### 2024-01-10 - title 
+descript. [XX mins]
+
+### 2024-01-10 - title 
+descript. [XX mins]
+
+### 2024-01-10 - title 
+descript. [XX mins]
+
+### 2024-01-10 - title 
+descript. [XX mins]
+
+### 2024-01-10 - title 
+descript. [XX mins]
+
+### 2024-01-10 - title 
+descript. [XX mins]
 
