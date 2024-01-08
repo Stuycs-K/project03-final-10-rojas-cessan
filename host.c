@@ -52,13 +52,10 @@ int main(int argc, char *argv[] ) {
       }
       int dc_check = sendmessage(client_socket, username);
       if (dc_check < 0){
-        printf("Quitting Sending Loop\n");
         kill(p, SIGKILL);
         exit(0);
       }
     }
-    //close(client_socket);
-    //close(listen_socket);
     exit(0);
   }
 

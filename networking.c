@@ -143,17 +143,24 @@ struct package * makepackage(char name[], char msg[]){
   return package;
 }
 
+void printpackage(struct package * package){
+  printf("%s: %s\n", package->name, package->MSG);
+}
+
 
 //sending messages
 int sendmessage(int socket, char * username){
+  //printf("usr: %s\n", username);
   //prompt
   char input[BUFFER_SIZE];
   //printf("Type here:");
   //fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
-  //.def
+  
   struct package * package;
-  package = makepackage(username, input);
+  //package = makepackage(username, input);
+  //printf("usr: %s\n", package->name);
+  printpackage(package);
   if (strncmp(input, DISCONNECT, 2)==0){
     printf("You have left the chat.\n");
     int s_check = send(socket, package, sizeof(struct package), 0);
@@ -177,6 +184,10 @@ int recvmessage(int socket, char * othername){
     return -1;
   }
   //print
-  printf("%s: %s", recieved->name, recieved->MSG);
+  //printpackage(recieved);
+  int p_check = printf("%s: %s", recieved->MSG, recieved->name);
+  // printf("othername: %s\n", recieved->name);
+  // printf("message: %s\n", recieved->MSG);
+  //err(p_check, "printing\n");
   return 0;
 }
