@@ -50,8 +50,7 @@ int main(int argc, char *argv[] ) {
         kill(p, SIGKILL);
         exit(0);
       }
-
-      int dc_check = sendmessage(client_socket);
+      int dc_check = sendmessage(client_socket, username);
       if (dc_check < 0){
         printf("Quitting Sending Loop\n");
         kill(p, SIGKILL);

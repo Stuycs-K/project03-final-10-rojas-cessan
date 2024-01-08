@@ -22,6 +22,9 @@ void err(int i, char*message);
 int server_setup();
 int client_tcp_handshake(char*server_address);
 int server_tcp_handshake(int listen_socket);
-int sendmessage(int socket);
+int sendmessage(int socket, char * username);
 int recvmessage(int socket, char * othername);
+
+struct package {char name[BUFFER_SIZE]; char MSG[BUFFER_SIZE];};
+struct package * makepackage(char name[], char msg[]);
 #endif

@@ -52,7 +52,7 @@ int main(int argc, char *argv[] ) {
         exit(0);
       }
 
-      int dc_check = sendmessage(server_socket);
+      int dc_check = sendmessage(server_socket, username);
       if (dc_check < 0){
         printf("Quitting Sending Loop\n");
         kill(p, SIGKILL);

@@ -134,19 +134,29 @@ void err(int i, char*message){
   }
 }
 
+//PACKAGES
+//struct package {char name[BUFFER_SIZE]; char MSG[BUFFER_SIZE];};
+struct package * makepackage(char name[], char msg[]){
+  struct package * package = malloc(sizeof(struct package));
+  strcpy(package->name, name);
+  strcpy(package->MSG, msg);
+  return package;
+}
+
 
 //sending messages
-
-int sendmessage(int socket){
+int sendmessage(int socket, char * username){
   //prompt
   char input[BUFFER_SIZE];
   //printf("Type here:");
   //fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   //.def
+  struct package * package;
+  package = makepackage(username, input);
   if (strncmp(input, DISCONNECT, 2)==0){
     printf("You have left the chat.\n");
-    int s_check = send(socket, input, BUFFER_SIZE, 0);
+    int s_check = send(socket, package, sizeof(struct package), 0);
     err(s_check, "Sending\n");
     return -1;
   }
@@ -158,15 +168,15 @@ int sendmessage(int socket){
 }
 
 int recvmessage(int socket, char * othername){
-  char recieved[BUFFER_SIZE];
-  int r_check = recv(socket, recieved, BUFFER_SIZE, 0);
+  struct package * recieved;
+  int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err(r_check, "Recving\n");
   //disconnect
-  if (strncmp(recieved, DISCONNECT, 2)==0){
+  if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     printf("%s has left the chat.\n", othername);
     return -1;
   }
   //print
-  printf("%s: %s", othername, recieved);
+  printf("%s: %s", recieved->name, recieved->MSG);
   return 0;
 }
