@@ -81,8 +81,6 @@ int main(){
         }
     }
 
-
-
     free(hints);
     freeaddrinfo(results);
     return 0;
