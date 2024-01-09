@@ -159,7 +159,7 @@ int sendmessage(int socket, char * username){
   //   *strchr(input, '\n')='\0'; //remove newline
   // }
   
-  struct package * package = malloc (2 * sizeof(struct package));
+  struct package * package = malloc ( sizeof(struct package));
   package = makepackage(package, username, input);
   //printf("usr: %s\n", package->name);
   //printpackage(package);
@@ -170,14 +170,14 @@ int sendmessage(int socket, char * username){
     return -1;
   }
   //send
-  int s_check = send(socket, input, sizeof(struct package), 0);
+  int s_check = send(socket, package, sizeof(struct package), 0);
   err(s_check, "Sending\n");
   //printf("You: %s", input);
   return 0;
 }
 
 int recvmessage(int socket, char * othername){
-  struct package * recieved = malloc (2 * sizeof(struct package));
+  struct package * recieved = malloc ( sizeof(struct package));
   //recieved = makepackage(NULL, NULL);// = calloc( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err(r_check, "Recving\n");
