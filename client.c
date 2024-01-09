@@ -1,4 +1,5 @@
 #include "networking.h"
+#include "messaging.h"
 
 static void sighandler( int signo ){
     if (signo==SIGINT){
@@ -21,7 +22,7 @@ int main(int argc, char *argv[] ) {
 
   //username
   char * username = malloc (BUFFER_SIZE);
-  printf("Type your username here:");
+  printf("Type your username here: ");
   fflush(stdout);
   fgets(username, BUFFER_SIZE, stdin);
   if (strchr(username, '\n')!=NULL){ //if token ends in newline

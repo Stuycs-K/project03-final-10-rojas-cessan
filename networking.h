@@ -16,16 +16,9 @@
 #ifndef NETWORKING_H
 #define NETWORKING_H
 #define PORT "13261"
-#define DISCONNECT ".d"
 #define BUFFER_SIZE 1024
 void err(int i, char*message);
 int server_setup();
 int client_tcp_handshake(char*server_address);
 int server_tcp_handshake(int listen_socket);
-int sendmessage(int socket, char * username);
-int recvmessage(int socket, char * othername);
-
-struct package {char name[1024]; char MSG[1024];};
-struct package * makepackage(struct package * package,char name[], char msg[]);
-void printpackage(struct package * package);
 #endif

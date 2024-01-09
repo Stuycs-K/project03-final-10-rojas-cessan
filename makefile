@@ -3,20 +3,23 @@ notDefault:
 
 compile: client host
 
-client: client.o networking.o
-	@gcc -o client client.o networking.o
+client: client.o networking.o messaging.o
+	@gcc -o client client.o networking.o messaging.o
 
-host: host.o networking.o
-	@gcc -o host host.o networking.o
+host: host.o networking.o messaging.o
+	@gcc -o host host.o networking.o messaging.o
 
-client.o: client.c networking.h
+client.o: client.c networking.h messaging.h
 	@gcc -c client.c
 
-host.o: host.c networking.h
+host.o: host.c networking.h messaging.h
 	@gcc -c host.c
 
 networking.o: networking.c networking.h
 	@gcc -c networking.c
+
+messaging.o: messaging.c messaging.h
+	@gcc -c messaging.c
 
 clean:
 	@rm -f *.o
