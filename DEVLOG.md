@@ -23,8 +23,8 @@ I tried to incorporate sending structs, so that the username could be shared wit
 ### 2024-01-08 - debugging structs 
 On linux, I don't recieve an error for printing a string that cannot be printed. I suspect there's an issue with memory allocation. Still, trying to debug in class. For homework, I continued debugging. I've achieved the name working when it disconnects. However, I think I will resort tomorrow to help to fix this bug. [40 mins]
 
-### 2024-01-09 - title 
-descript. [XX mins]
+### 2024-01-09 - multiple clients
+Finally debugged structs! Also organized files for readability and messed around with the multi code in class. [XX mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
