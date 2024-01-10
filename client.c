@@ -35,11 +35,11 @@ int main(int argc, char *argv[] ) {
       printf("fork error");
       exit(1);
   }
-  else if (p==0){//send
+  else if (p==0){//recv
     while(1){
-      int dc_check = recvmessage(server_socket, "other");
-      //printf("dc= %d\n", dc_check);
+      int dc_check = recvmessage(server_socket);
       if (dc_check<0){
+        err(dc_check, "recv");
         exit(0);
       }
     }
