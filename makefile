@@ -26,4 +26,3 @@ clean:
 	@rm -f host
 	@rm -f client
 	@rm -f *~
-

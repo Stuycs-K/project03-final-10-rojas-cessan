@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <ctype.h>
+#include <time.h>
 
 #ifndef MESSAGING_H
 #define MESSAGING_H
@@ -18,7 +19,7 @@
 #define BUFFER_SIZE 1024
 void err2(int i, char*message);
 int sendmessage(int socket, char * username);
-int recvmessage(int socket, char * othername);
+int recvmessage(int socket);
 struct package {char name[1024]; char MSG[1024];};
 struct package * makepackage(struct package * package,char name[], char msg[]);
 void printpackage(struct package * package);

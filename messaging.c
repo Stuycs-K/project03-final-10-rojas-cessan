@@ -18,12 +18,11 @@ int sendmessage(int socket, char * username){
 
   //prompt
   char * input = malloc(BUFFER_SIZE);
-  //fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   // if (strchr(input, '\n')!=NULL){ //if token ends in newline
   //   *strchr(input, '\n')='\0'; //remove newline
   // }
-  
+
   struct package * package = malloc ( sizeof(struct package));
   package = makepackage(package, username, input);
 
@@ -41,7 +40,7 @@ int sendmessage(int socket, char * username){
   return 0;
 }
 
-int recvmessage(int socket, char * othername){
+int recvmessage(int socket){
   struct package * recieved = malloc ( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err2(r_check, "Recving\n");
