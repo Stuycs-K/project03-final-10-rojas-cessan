@@ -18,7 +18,7 @@
 #define DISCONNECT ".d"
 #define BUFFER_SIZE 1024
 void err2(int i, char*message);
-int sendmessage(int socket, char * username);
+int sendmessage(int socket, char * username, char * input);
 int recvmessage(int socket);
 struct package {char name[1024]; char MSG[1024];};
 struct package * makepackage(struct package * package,char name[], char msg[]);

@@ -14,11 +14,11 @@ void printpackage(struct package * package){
 
 
 //sending messages
-int sendmessage(int socket, char * username){
+int sendmessage(int socket, char * username, char * input){
 
   //prompt
-  char * input = malloc(BUFFER_SIZE);
-  fgets(input, BUFFER_SIZE, stdin);
+  // char * input = malloc(BUFFER_SIZE);
+  // fgets(input, BUFFER_SIZE, stdin);
   // if (strchr(input, '\n')!=NULL){ //if token ends in newline
   //   *strchr(input, '\n')='\0'; //remove newline
   // }

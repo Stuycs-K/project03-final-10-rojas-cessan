@@ -39,11 +39,14 @@ int main(int argc, char *argv[] ) {
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(server_socket,&read_fds);
         int i = select(server_socket+1, &read_fds, NULL, NULL, NULL);
+        err(i, "select");
   }
   //if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
             fgets(buff, sizeof(buff), stdin);
             buff[strlen(buff)-1]=0;
+            printf("buff: %s\n", buff);
+            sendmessage(server_socket, username, buff);
             printf("Recieved from terminal: '%s'\n",buff);
         }
 
