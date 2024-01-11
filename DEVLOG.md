@@ -26,8 +26,8 @@ On linux, I don't recieve an error for printing a string that cannot be printed.
 ### 2024-01-09 - multiple clients, perhaps
 Finally debugged structs! Also organized files for readability and messed around with the multi code in class. At home, I created a new branch because I'm unsure on if I'll manage to get multiple users to work. I came up with a possible way for the multi aspect to work. It compiles but doesn't work in the slightest. [70 mins]
 
-### 2024-01-10 - title 
-descript. [XX mins]
+### 2024-01-10 - multiple clients: connected
+In class, I mainly planned how I was going to restructure basically me entire code. I originally used multi-threading to get a chat program between the host and client, but I'm switching to using select to be able to use multiple clients. At home, I debugged and got the client and host able to connect. However, I'm not sure why messages are not appearing. [35 mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
