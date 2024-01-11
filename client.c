@@ -11,7 +11,7 @@ static void sighandler( int signo ){
 
 int main(int argc, char *argv[] ) {
   signal(SIGINT, sighandler);
-  
+
   //username
   char * username = malloc (BUFFER_SIZE);
   printf("Type your username here: ");
@@ -30,11 +30,15 @@ int main(int argc, char *argv[] ) {
   int server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
 
+  //init
+  fd_set read_fds;
+  char buff[1025]="";
+
   while(1){
-    FD_ZERO(&read_fds);
+        FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
-        FD_SET(listen_socket,&read_fds);
-        int i = select(listen_socket+1, &read_fds, NULL, NULL, NULL);
+        FD_SET(server_socket,&read_fds);
+        int i = select(server_socket+1, &read_fds, NULL, NULL, NULL);
   }
   //if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
@@ -44,13 +48,16 @@ int main(int argc, char *argv[] ) {
         }
 
         // if socket
-        if (FD_ISSET(listen_socket, &read_fds)) {
+        if (FD_ISSET(server_socket, &read_fds)) {
             //accept the connection
-            int client_socket = accept(listen_socket,(struct sockaddr *)&client_address, &sock_size);
+            socklen_t sock_size;
+            struct sockaddr_storage client_address;
+            sock_size = sizeof(client_address);
+            int server_socket = accept(server_socket,(struct sockaddr *)&client_address, &sock_size);
             printf("Connected, waiting for data.\n");
 
             //read the whole buff
-            read(client_socket,buff, sizeof(buff));
+            read(server_socket,buff, sizeof(buff));
             //trim the string
             buff[strlen(buff)-1]=0; //clear newline
             if(buff[strlen(buff)-1]==13){
@@ -58,8 +65,8 @@ int main(int argc, char *argv[] ) {
                 buff[strlen(buff)-1]=0;
             }
 
-            printf("\nRecieved from client '%s'\n",buff);
-            close(client_socket);
+            printf("\nRecieved from host '%s'\n", buff);
+            close(server_socket);
         }
 }
 
@@ -99,4 +106,3 @@ int main(int argc, char *argv[] ) {
   //   //close(server_socket);
   //   exit(0);
   // }
-}

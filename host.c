@@ -33,8 +33,8 @@ int main(int argc, char *argv[] ) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
     FD_SET(listen_socket,&read_fds);
-    for (i = 0; i < c; i++){
-            FD_SET(clients[i], &read_fds);
+    for (int a = 0; a < c; a++){
+            FD_SET(clients[a], &read_fds);
     }
 
     //select
@@ -45,6 +45,9 @@ int main(int argc, char *argv[] ) {
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
         fgets(buff, sizeof(buff), stdin);
         buff[strlen(buff)-1]=0;
+        for (int d = 0; d < c; d++){
+            sendmessage(clients[d], username);
+        }
         printf("Recieved from terminal: '%s'\n",buff);
     }
     if(FD_ISSET(listen_socket, &read_fds)){
@@ -69,13 +72,13 @@ int main(int argc, char *argv[] ) {
           close(client_socket);
     }
     for (int n = 0; n < c; n++){
-      if(FD_ISSET(client[n], &read_fds)){
+      if(FD_ISSET(clients[n], &read_fds)){
       // if socket CLIENTS
           //accept the connection
           socklen_t sock_size;
           struct sockaddr_storage client_address;
           sock_size = sizeof(client_address);
-          int client_socket = accept(client[n],(struct sockaddr *)&client_address, &sock_size);
+          int client_socket = accept(clients[n],(struct sockaddr *)&client_address, &sock_size);
           c++; //one more client
           printf("Connected, waiting for data.\n");
 
@@ -95,7 +98,7 @@ int main(int argc, char *argv[] ) {
 
 
 
-    
+
   }
 
 }
