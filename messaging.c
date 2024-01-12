@@ -15,7 +15,7 @@ void printpackage(struct package * package){
 
 //sending messages
 int sendmessage(int socket, char * username, char * input){
-  printf("SENDING MSGS\n");
+ // printf("SENDING MSGS\n");
 
   //prompt
   // char * input = malloc(BUFFER_SIZE);
@@ -37,14 +37,24 @@ int sendmessage(int socket, char * username, char * input){
 
   //send
   int s_check = send(socket, package, sizeof(struct package), 0);
+  //check if disconnected
+  if (s_check == 0){
+    printf("socket closed.\n");
+    exit(1);
+  }
   err2(s_check, "Sending\n");
+  free(package);
   return 0;
 }
 
 int recvmessage(int socket){
-  printf("RECVING MSGS\n");
+ // printf("RECVING MSGS\n");
   struct package * recieved = malloc ( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
+  if (r_check == 0){
+    printf("socket closed.\n");
+    exit(1);
+  }
   err2(r_check, "Recving\n");
 
   //disconnect
@@ -55,6 +65,31 @@ int recvmessage(int socket){
   //print
   int p_check = printf("%s: %s", recieved->name, recieved->MSG);
   err2(p_check, "printing\n");
+  free(recieved);
+  return 0;
+}
+
+int recvmessagestring(int socket, char * tempuser, char * tempbuff){
+ // printf("RECVING MSGS\n");
+  struct package * recieved = malloc ( sizeof(struct package));
+  int r_check = recv(socket, recieved, sizeof(struct package), 0);
+  if (r_check == 0){
+    printf("socket closed.\n");
+    exit(1);
+  }
+  err2(r_check, "Recving\n");
+
+  //disconnect
+  if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
+    printf("%s has left the chat.\n", recieved->name);
+    return -1;
+  }
+  //print
+  int p_check = printf("%s: %s", recieved->name, recieved->MSG);
+  err2(p_check, "printing\n");
+  strcpy(tempuser, recieved->name);
+  strcpy(tempbuff, recieved->MSG);
+  free(recieved);
   return 0;
 }
 

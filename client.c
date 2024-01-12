@@ -35,7 +35,7 @@ int main(int argc, char *argv[] ) {
   char buff[1025]="";
 
   while(1){
-    printf("while start\n");
+    //printf("while start\n");
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(server_socket,&read_fds);
@@ -49,20 +49,28 @@ int main(int argc, char *argv[] ) {
           printf("STDIN\n");
             fgets(buff, sizeof(buff), stdin);
             //buff[strlen(buff)-1]=0;
-            printf("sending this buff: %s\n", buff);
-            sendmessage(server_socket, username, buff);
+           // printf("sending this buff: %s\n", buff);
+            int dc_check =  sendmessage(server_socket, username, buff);
+            if (dc_check < 0){
+              printf("You left the chat.\n");
+              exit(0);
+            }
             //printf("Recieved from terminal: '%s'\n",buff);
         }
 
         // if socket
         if (FD_ISSET(server_socket, &read_fds)) {
           printf("SS\n");
-            printf("Connected, waiting for data.\n");
+           // printf("Connected, waiting for data.\n");
 
             //read the whole buff
-            recvmessage(server_socket);
+            int dc_check = recvmessage(server_socket);
+            if (dc_check < 0){
+              printf("You left the chat.\n");
+              exit(0);
+            }
 
-            printf("\nRecieved from host '%s'\n", buff);
+           // printf("\nRecieved from host '%s'\n", buff);
             //close(server_socket);
         }
       }
