@@ -29,8 +29,8 @@ Finally debugged structs! Also organized files for readability and messed around
 ### 2024-01-10 - multiple clients: connected
 In class, I mainly planned how I was going to restructure basically me entire code. I originally used multi-threading to get a chat program between the host and client, but I'm switching to using select to be able to use multiple clients. At home, I debugged and got the client and host able to connect. However, I'm not sure why messages are not appearing. [35 mins]
 
-### 2024-01-10 - title 
-descript. [XX mins]
+### 2024-01-11 - multiple clients: debugging select
+In class and at home, I spent all my time debugging. [60 mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
