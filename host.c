@@ -24,24 +24,30 @@ int main(int argc, char *argv[] ) {
   int listen_socket= server_setup();
   //init stuff
   int c = 0;
-  int clients[10];// An array for max 10 clients
+  int * clients = calloc (10, sizeof(int));// An array for max 10 clients
   fd_set read_fds;
   char buff[1025]="";
 while(1){
+    printf("start of while\n");
     int i = 0;
     //select params; must be reset when reused
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
     FD_SET(listen_socket,&read_fds);
-    int max = 0;
-    for (int a = 0; a < c; a++){
-            FD_SET(clients[a], &read_fds);
-            max++;
-    }
 
+    int max = listen_socket;
+    for (int a = 0; clients[a]; a++){
+            FD_SET(clients[a], &read_fds);
+            max=clients[a];
+    }
+    // printf("0 client: %d\n", clients[0]);
+    // printf("max client: %d\n", clients[max]);
+    // printf("max: %d\n", max);
     //select
     printf("before select\n");
-    i = select(listen_socket+max+1, &read_fds, NULL, NULL, NULL);
+    printf("fds: %d\n", (listen_socket+max+1));
+    i = select(max+1, &read_fds, NULL, NULL, NULL);
+//listen_socket+max
     err(i, "select");
     printf("after select\n");
 
@@ -52,7 +58,7 @@ while(1){
         fgets(buff, sizeof(buff), stdin);
         buff[strlen(buff)-1]=0;
         printf("buff: %s\n", buff);
-        for (int d = 0; d < c; d++){
+        for (int d = 0; clients[d]; d++){
             sendmessage(clients[d], username, buff);
         }
         printf("Recieved from terminal: '%s'\n",buff);
@@ -65,7 +71,7 @@ while(1){
           struct sockaddr_storage client_address;
           sock_size = sizeof(client_address);
           printf("before accept listen\n");
-    
+
           int client_socket = accept(listen_socket,(struct sockaddr *)&client_address, &sock_size);
           c++;
           int last = 0;
@@ -74,29 +80,15 @@ while(1){
             last=a;
            }
            clients[last] = client_socket;
-           FD_SET(clients[last], &read_fds);
 
-          // printf("after accept listen\n");
-          // // c++; //one more client
-          // printf("Connected, waiting for data.\n");
-
-          // //read the whole buff
-          //  printf("before read listen\n");
-          // int r_check = read(client_socket, buff, sizeof(buff));
-          // err(r_check, "read listen");
-          // printf("after read listen\n");
-          // //trim the string
-          // buff[strlen(buff)-1]=0; //clear newline
-          // if(buff[strlen(buff)-1]==13){
-          //     //clear windows line ending
-          //     buff[strlen(buff)-1]=0;
-          // }
-          // printf("\nRecieved from client '%s'\n",buff);
-           close(client_socket);
+           printf("\nRecieved from client '%s'\n",buff);
+           // close(client_socket);
+           // FD_CLR(client_socket ,&read_fds);
+           //client_socket = -1;
           // printf("end socket listen\n");
     }
     else{
-    for (int n = 0; n < max; n++){
+    for (int n = 0; clients[n]; n++){
       printf("in client loop\n");
       if(FD_ISSET(clients[n], &read_fds)){
       // if socket CLIENTS
@@ -111,8 +103,9 @@ while(1){
               //clear windows line ending
               buff[strlen(buff)-1]=0;
           }
-          printf("\nRecieved from client '%s'\n",buff);
-          //close(client_socket);
+
+          // close(clients[n]);
+          // FD_CLR(clients[n] ,&read_fds);
       }
     }
     }

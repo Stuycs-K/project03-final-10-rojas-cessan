@@ -52,12 +52,12 @@ int main(int argc, char *argv[] ) {
 
         // if socket
         if (FD_ISSET(server_socket, &read_fds)) {
-            //accept the connection
-            socklen_t sock_size;
-            struct sockaddr_storage client_address;
-            sock_size = sizeof(client_address);
-            int server_socket = accept(server_socket,(struct sockaddr *)&client_address, &sock_size);
-            printf("Connected, waiting for data.\n");
+            // //accept the connection
+            // socklen_t sock_size;
+            // struct sockaddr_storage client_address;
+            // sock_size = sizeof(client_address);
+            // int server_socket = accept(server_socket,(struct sockaddr *)&client_address, &sock_size);
+            // printf("Connected, waiting for data.\n");
 
             //read the whole buff
             read(server_socket,buff, sizeof(buff));
