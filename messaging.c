@@ -15,6 +15,7 @@ void printpackage(struct package * package){
 
 //sending messages
 int sendmessage(int socket, char * username, char * input){
+  printf("SENDING MSGS\n");
 
   //prompt
   // char * input = malloc(BUFFER_SIZE);
@@ -41,6 +42,7 @@ int sendmessage(int socket, char * username, char * input){
 }
 
 int recvmessage(int socket){
+  printf("RECVING MSGS\n");
   struct package * recieved = malloc ( sizeof(struct package));
   int r_check = recv(socket, recieved, sizeof(struct package), 0);
   err2(r_check, "Recving\n");

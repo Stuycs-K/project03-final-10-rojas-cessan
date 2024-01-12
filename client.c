@@ -35,42 +35,37 @@ int main(int argc, char *argv[] ) {
   char buff[1025]="";
 
   while(1){
+    printf("while start\n");
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(server_socket,&read_fds);
+        printf("before sselect\n");
         int i = select(server_socket+1, &read_fds, NULL, NULL, NULL);
         err(i, "select");
-  }
+        printf("after sselect\n");
+
   //if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+          printf("STDIN\n");
             fgets(buff, sizeof(buff), stdin);
-            buff[strlen(buff)-1]=0;
-            printf("buff: %s\n", buff);
+            //buff[strlen(buff)-1]=0;
+            printf("sending this buff: %s\n", buff);
             sendmessage(server_socket, username, buff);
-            printf("Recieved from terminal: '%s'\n",buff);
+            //printf("Recieved from terminal: '%s'\n",buff);
         }
 
         // if socket
         if (FD_ISSET(server_socket, &read_fds)) {
-            // //accept the connection
-            // socklen_t sock_size;
-            // struct sockaddr_storage client_address;
-            // sock_size = sizeof(client_address);
-            // int server_socket = accept(server_socket,(struct sockaddr *)&client_address, &sock_size);
-            // printf("Connected, waiting for data.\n");
+          printf("SS\n");
+            printf("Connected, waiting for data.\n");
 
             //read the whole buff
-            read(server_socket,buff, sizeof(buff));
-            //trim the string
-            buff[strlen(buff)-1]=0; //clear newline
-            if(buff[strlen(buff)-1]==13){
-                //clear windows line ending
-                buff[strlen(buff)-1]=0;
-            }
+            recvmessage(server_socket);
 
             printf("\nRecieved from host '%s'\n", buff);
-            close(server_socket);
+            //close(server_socket);
         }
+      }
 }
 
   // pid_t p;

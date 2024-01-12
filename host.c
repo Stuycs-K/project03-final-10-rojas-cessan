@@ -40,9 +40,7 @@ while(1){
             FD_SET(clients[a], &read_fds);
             max=clients[a];
     }
-    // printf("0 client: %d\n", clients[0]);
-    // printf("max client: %d\n", clients[max]);
-    // printf("max: %d\n", max);
+
     //select
     printf("before select\n");
     printf("fds: %d\n", (listen_socket+max+1));
@@ -53,15 +51,15 @@ while(1){
 
     //if standard in, use fgets
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-      printf("Type yo here: ");
-       fflush(stdout);
+      // printf("Type yo here: ");
+      //  fflush(stdout);
         fgets(buff, sizeof(buff), stdin);
-        buff[strlen(buff)-1]=0;
-        printf("buff: %s\n", buff);
+        //buff[strlen(buff)-1]=0;
+        printf("sending buff to clients: %s\n", buff);
         for (int d = 0; clients[d]; d++){
             sendmessage(clients[d], username, buff);
         }
-        printf("Recieved from terminal: '%s'\n",buff);
+        //printf("Recieved from terminal: '%s'\n",buff);
     }
     else if(FD_ISSET(listen_socket, &read_fds)){
       printf("in socket listen\n");
@@ -81,7 +79,7 @@ while(1){
            }
            clients[last] = client_socket;
 
-           printf("\nRecieved from client '%s'\n",buff);
+           printf("\nCLIENT ADDED\n");
            // close(client_socket);
            // FD_CLR(client_socket ,&read_fds);
            //client_socket = -1;
@@ -95,7 +93,7 @@ while(1){
           printf("Connected, waiting for data.\n");
 
           //read the whole buff
-          int r_check = read(clients[n], buff, sizeof(buff));
+          int r_check = recvmessage(clients[n]);
           err(r_check, "read listen");
           //trim the string
           buff[strlen(buff)-1]=0; //clear newline
@@ -103,7 +101,8 @@ while(1){
               //clear windows line ending
               buff[strlen(buff)-1]=0;
           }
-
+          //printing to server terminal
+          printf("Recieved from client %d: %s", n, buff);
           // close(clients[n]);
           // FD_CLR(clients[n] ,&read_fds);
       }
