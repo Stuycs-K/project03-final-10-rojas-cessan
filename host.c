@@ -49,7 +49,7 @@ while(1){
     err(i, "select");
 
     //if standard in, use fgets
-    
+
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
       printf("filedescriptable: ");
       for(int z = 0; clients[z]; z++){
@@ -81,7 +81,7 @@ while(1){
             clients[0] = client_socket;
           }
           else{
-            for (int a = 0; clients[a]; a++){
+            for (int a = 0; a < sizeof(clients); a++){
               if (clients[a] == 0){
                 clients[a] = client_socket;
                 break;
@@ -89,7 +89,7 @@ while(1){
            }
 
           }
-      
+
 
        //    printf("\nCLIENT ADDED\n");
            // close(client_socket);
@@ -110,7 +110,7 @@ while(1){
           char tempbuff[BUFFER_SIZE];
           int r_check = recvmessagestring(clients[n], tempuser, tempbuff);
           err(r_check, "read listen");
-          
+
 
           //send to everyone else
           // for (int j=0; clients[j]; j++){
