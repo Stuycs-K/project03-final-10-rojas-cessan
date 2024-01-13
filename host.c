@@ -113,11 +113,11 @@ while(1){
 
 
           //send to everyone else
-          // for (int j=0; clients[j]; j++){
-          //   if (j!=n){
-          //     sendmessage(clients[j], tempuser, tempbuff);
-          //   }
-          // }
+          for (int j=0; clients[j]; j++){
+            if (j!=n){
+              sendmessage(clients[j], tempuser, tempbuff);
+            }
+          }
       }
     }
     }
