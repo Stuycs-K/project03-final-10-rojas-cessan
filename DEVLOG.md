@@ -1,7 +1,10 @@
 # Dev Log:
 
 ## Nelli
-Note: The number of minutes in brackets refers to at-home work and doesn't include class time. 
+Notes: 
+- The number of minutes in brackets refers to at-home work and doesn't include class time.
+- When I sometimes refer to "multi," I mean it as in something related to using multiple sockets with select.
+
 ### 2024-01-03 - proposal
 I wrote the proposal. [30 mins]
 
@@ -32,7 +35,7 @@ In class, I mainly planned how I was going to restructure basically me entire co
 ### 2024-01-11 - multiple clients: debugging select
 In class and at home, I spent all my time debugging. The sending messages part works well with the structs but disconnect is an issue. More glaringly, the host can only communicate with the latest client. [120 mins]
 
-### 2024-01-10 - title 
+### 2024-01-12 - multi works WEEKEND + LATE NIGHT COMMIT
 descript. [XX mins]
 
 ### 2024-01-10 - title 
