@@ -39,20 +39,19 @@ int main(int argc, char *argv[] ) {
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(server_socket,&read_fds);
-        printf("before sselect\n");
+        //printf("before sselect\n");
         int i = select(server_socket+1, &read_fds, NULL, NULL, NULL);
         err(i, "select");
-        printf("after sselect\n");
+        //printf("after sselect\n");
 
   //if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-          printf("STDIN\n");
+          //printf("STDIN\n");
             fgets(buff, sizeof(buff), stdin);
             //buff[strlen(buff)-1]=0;
            // printf("sending this buff: %s\n", buff);
             int dc_check =  sendmessage(server_socket, username, buff);
             if (dc_check < 0){
-              printf("You left the chat.\n");
               exit(0);
             }
             //printf("Recieved from terminal: '%s'\n",buff);
@@ -60,13 +59,14 @@ int main(int argc, char *argv[] ) {
 
         // if socket
         if (FD_ISSET(server_socket, &read_fds)) {
-          printf("SS\n");
+          //printf("SS\n");
            // printf("Connected, waiting for data.\n");
 
             //read the whole buff
-            int dc_check = recvmessage(server_socket);
+            char tempuser[BUFFER_SIZE];
+            char tempbuff[BUFFER_SIZE];
+            int dc_check = recvmessagestring(server_socket, tempuser, tempbuff);
             if (dc_check < 0){
-              printf("You left the chat.\n");
               exit(0);
             }
 

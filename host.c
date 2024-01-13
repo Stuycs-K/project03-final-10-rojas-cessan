@@ -43,7 +43,7 @@ while(1){
 
     //select
 
-    printf("fds: %d\n", (listen_socket+max+1)); //checking fd table
+    //printf("fds: %d\n", (listen_socket+max+1)); //checking fd table
     i = select(max+1, &read_fds, NULL, NULL, NULL);
 //listen_socket+max
     err(i, "select");
@@ -51,17 +51,22 @@ while(1){
     //if standard in, use fgets
 
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-      printf("filedescriptable: ");
-      for(int z = 0; clients[z]; z++){
-        printf("%d, ", clients[z]);
-      }
-      printf("\n");
-      // printf("Type yo here: ");
+        //checking filedescriptable
+            // printf("filedescriptable: ");
+            // for(int z = 0; clients[z]; z++){
+            //   printf("%d, ", clients[z]);
+            // }
+            // printf("\n");
+      // printf("You: ");
       //  fflush(stdout);
         fgets(buff, sizeof(buff), stdin);
         for (int d = 0; clients[d]; d++){
-          printf("sending to client %d\n", d);
-            sendmessage(clients[d], username, buff);
+          //printf("sending to client %d\n", d);
+            int dc_check = sendmessage(clients[d], username, buff);
+            if (dc_check < 0){
+              printf("Chat ended.\n");
+              exit(0);
+            }
         }
         //printf("Recieved from terminal: '%s'\n",buff);
     }
@@ -103,14 +108,21 @@ while(1){
       if(FD_ISSET(clients[n], &read_fds)){
       // if socket CLIENTS
 
-          printf("Connected, waiting for data.\n");
+          //printf("Connected, waiting for data.\n");
 
           //read the whole buff
           char tempuser[BUFFER_SIZE];
           char tempbuff[BUFFER_SIZE];
-          int r_check = recvmessagestring(clients[n], tempuser, tempbuff);
-          err(r_check, "read listen");
-
+          int dc_check = recvmessagestring(clients[n], tempuser, tempbuff);
+          err(dc_check, "read listen");
+          if (dc_check < 0){ //.d disconnect check
+            exit(0);
+          }
+          if (dc_check == SOCKETCLOSED){//SIGINT disconnect check
+            //remove from client list
+            //shift down higher clients
+            
+          }
 
           //send to everyone else
           for (int j=0; clients[j]; j++){

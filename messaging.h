@@ -17,6 +17,7 @@
 #define MESSAGING_H
 #define DISCONNECT ".d"
 #define BUFFER_SIZE 1024
+#define SOCKETCLOSED 2
 void err2(int i, char*message);
 int sendmessage(int socket, char * username, char * input);
 int recvmessage(int socket);
