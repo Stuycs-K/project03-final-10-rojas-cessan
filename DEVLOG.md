@@ -36,7 +36,7 @@ In class, I mainly planned how I was going to restructure basically me entire co
 In class and at home, I spent all my time debugging. The sending messages part works well with the structs but disconnect is an issue. More glaringly, the host can only communicate with the latest client. [120 mins]
 
 ### 2024-01-12 - multi works WEEKEND + LATE NIGHT COMMIT
-descript. [XX mins]
+Both in class and at home: Debugged code so that you can now send and recieve between all clients and the host! Added errors for when a socket disconnects with SIGINT. Added freeing to when I malloc package structs. [40 mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
