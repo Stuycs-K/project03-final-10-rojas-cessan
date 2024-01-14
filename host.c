@@ -114,14 +114,38 @@ while(1){
           char tempuser[BUFFER_SIZE];
           char tempbuff[BUFFER_SIZE];
           int dc_check = recvmessagestring(clients[n], tempuser, tempbuff);
-          err(dc_check, "read listen");
+          printf("recved mess\n");
+
+          //err(dc_check, "read listen");
           if (dc_check < 0){ //.d disconnect check
-            exit(0);
+            //remove from client list
+            clients[n] = 0;
+            //shift down higher clients
+            for (int j=0; clients[j]; j++){
+              if ((j>=n)&&(j<sizeof(clients))){
+                if((clients[j]==0)&&(clients[j+1]!=0)){
+                  clients[j]=clients[j+1];
+                  clients[j+1] = 0;
+                }
+              }
+            }
+            printf("exit?\n");
+            //exit(0);
           }
           if (dc_check == SOCKETCLOSED){//SIGINT disconnect check
             //remove from client list
+            clients[n] = 0;
             //shift down higher clients
-            
+            for (int j=0; clients[j]; j++){
+              if ((j>=n)&&(j<sizeof(clients))){
+                if((clients[j]==0)&&(clients[j+1]!=0)){
+                  clients[j]=clients[j+1];
+                  clients[j+1] = 0;
+                }
+              }
+            }
+            //exit(0);
+            printf("exit?\n");
           }
 
           //send to everyone else
