@@ -36,8 +36,8 @@ In class and at home, I spent all my time debugging. The sending messages part w
 ### 2024-01-12 - multi works WEEKEND + LATE NIGHT COMMIT
 Both in class and at home: Debugged code so that you can now send and recieve between all clients and the host! Added errors for when a socket disconnects with SIGINT. Added freeing to when I malloc package structs. [40 mins]
 
-### 2024-01-10 - title 
-descript. [XX mins]
+### 2024-01-13 - disconnect works WEEKEND + LATE NIGHT COMMIT
+I made disconnect work in the way I want it to work so it server doesn't stop even if someone disconnects using ".d" or SIGINT. It's also my birthday today. :) [30 mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
