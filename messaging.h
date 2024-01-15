@@ -16,6 +16,7 @@
 #ifndef MESSAGING_H
 #define MESSAGING_H
 #define DISCONNECT ".d"
+#define DCCODE "9*72bdjso[[[8]]]....~"
 #define BUFFER_SIZE 1024
 #define SOCKETCLOSED 2
 void err2(int i, char*message);

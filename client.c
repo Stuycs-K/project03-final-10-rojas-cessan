@@ -69,6 +69,10 @@ int main(int argc, char *argv[] ) {
             if (dc_check < 0){
               exit(0);
             }
+            if (dc_check == SOCKETCLOSED){
+              printf("Chat ended.");
+              exit(0);
+            }
 
            // printf("\nRecieved from host '%s'\n", buff);
             //close(server_socket);

@@ -16,14 +16,6 @@ void printpackage(struct package * package){
 //sending messages
 int sendmessage(int socket, char * username, char * input){
  // printf("SENDING MSGS\n");
-
-  //prompt
-  // char * input = malloc(BUFFER_SIZE);
-  // fgets(input, BUFFER_SIZE, stdin);
-  // if (strchr(input, '\n')!=NULL){ //if token ends in newline
-  //   *strchr(input, '\n')='\0'; //remove newline
-  // }
-
   struct package * package = malloc ( sizeof(struct package));
   package = makepackage(package, username, input);
 
@@ -61,6 +53,10 @@ int recvmessage(int socket){
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     printf("%s has left the chat.\n", recieved->name);
     return -1;
+  }
+  if (strcmp(recieved->MSG, DCCODE)==0){
+    printf("%s has left the chat.\n", recieved->name);
+    return 0;
   }
   //print
   int p_check = printf("%s: %s", recieved->name, recieved->MSG);

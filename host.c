@@ -114,10 +114,16 @@ while(1){
           char tempuser[BUFFER_SIZE];
           char tempbuff[BUFFER_SIZE];
           int dc_check = recvmessagestring(clients[n], tempuser, tempbuff);
-          printf("recved mess\n");
 
           //err(dc_check, "read listen");
           if (dc_check < 0){ //.d disconnect check
+            //tell others that someon left the chat
+            for (int j=0; clients[j]; j++){
+              if (j!=n){
+                printf("It's working\n");
+                sendmessage(clients[j], tempuser, DCCODE);
+              }
+            }
             //remove from client list
             clients[n] = 0;
             //shift down higher clients
@@ -129,7 +135,6 @@ while(1){
                 }
               }
             }
-            printf("exit?\n");
             //exit(0);
           }
           if (dc_check == SOCKETCLOSED){//SIGINT disconnect check
@@ -145,7 +150,7 @@ while(1){
               }
             }
             //exit(0);
-            printf("exit?\n");
+            //printf("exit?\n");
           }
 
           //send to everyone else
