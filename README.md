@@ -3,7 +3,7 @@
 
 ### GROUP NAME HERE
 
-Group Members Here
+Nelli Rojas-Cessa
        
 ### Project Description:
 
@@ -12,4 +12,14 @@ Explain what is this project.
 ### Instructions:
 
 How does the user install/compile/run the program.
+- To start server, do the following:
+  -- make compile
+  -- ./host
+- To join as another user:
+  -- make compile
+  -- ./client ENTER_IP_ADDRESS_HERE 
 How does the user interact with this program?
+- To leave chat:
+  -- .d OR Ctrl-C
+Known Bugs/Specifications:
+- Host must use SIGINT to disconnect if not fully connected to any client.
