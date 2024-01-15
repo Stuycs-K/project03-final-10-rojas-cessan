@@ -54,7 +54,6 @@ int main(int argc, char *argv[] ) {
             if (dc_check < 0){
               exit(0);
             }
-            //printf("Recieved from terminal: '%s'\n",buff);
         }
 
         // if socket
@@ -74,45 +73,6 @@ int main(int argc, char *argv[] ) {
               exit(0);
             }
 
-           // printf("\nRecieved from host '%s'\n", buff);
-            //close(server_socket);
         }
       }
 }
-
-  // pid_t p;
-  // p = fork();
-  // if (p<0){
-  //     printf("fork error");
-  //     exit(1);
-  // }
-  // else if (p==0){//recv
-  //   while(1){
-  //     int dc_check = recvmessage(server_socket);
-  //     if (dc_check<0){
-  //       err(dc_check, "recv");
-  //       exit(0);
-  //     }
-  //   }
-  //   close(server_socket);
-  //   exit(0);
-  // }
-  // else{//recv
-  //   while(1){
-  //     int status;
-  //     int w_check = waitpid(p, &status, WNOHANG);
-  //     if (w_check != 0 ){
-  //       printf("Quitting Sending Loop WNOHANG\n");
-  //       kill(p, SIGKILL);
-  //       exit(0);
-  //     }
-
-  //     int dc_check = sendmessage(server_socket, username);
-  //     if (dc_check < 0){
-  //       kill(p, SIGKILL);
-  //       exit(0);
-  //     }
-  //   }
-  //   //close(server_socket);
-  //   exit(0);
-  // }

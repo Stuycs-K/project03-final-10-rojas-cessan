@@ -51,14 +51,17 @@ int recvmessage(int socket){
 
   //disconnect
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
-    printf("%s has left the chat.\n", recieved->name);
+    // printf("Real dc\n");
+    //printf("%s has left the chat.\n", recieved->name);
     return -1;
   }
   if (strcmp(recieved->MSG, DCCODE)==0){
+    printf("It's wokring\n");
     printf("%s has left the chat.\n", recieved->name);
     return 0;
   }
   //print
+  //printf("Normie\n");
   int p_check = printf("%s: %s", recieved->name, recieved->MSG);
   err2(p_check, "printing\n");
   free(recieved);
@@ -79,6 +82,11 @@ int recvmessagestring(int socket, char * tempuser, char * tempbuff){
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     printf("%s has left the chat.\n", recieved->name);
     return -1;
+  }
+  if (strcmp(recieved->MSG, DCCODE)==0){
+    //printf("It's wokring\n");
+    printf("%s has left the chat.\n", recieved->name);
+    return 0;
   }
   //print
   int p_check = printf("%s: %s", recieved->name, recieved->MSG);

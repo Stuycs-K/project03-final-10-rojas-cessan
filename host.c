@@ -115,12 +115,12 @@ while(1){
           char tempbuff[BUFFER_SIZE];
           int dc_check = recvmessagestring(clients[n], tempuser, tempbuff);
 
-          //err(dc_check, "read listen");
+          //err(dc_check, "read listen"); //for some reason i cant have this
           if (dc_check < 0){ //.d disconnect check
             //tell others that someon left the chat
             for (int j=0; clients[j]; j++){
               if (j!=n){
-                printf("It's working\n");
+                printf("It's working, sending %s's message\n", tempuser);
                 sendmessage(clients[j], tempuser, DCCODE);
               }
             }
