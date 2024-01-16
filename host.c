@@ -10,6 +10,11 @@ static void sighandler( int signo ){
 
 int main(int argc, char *argv[] ) {
   signal(SIGINT, sighandler);
+  printf("CESSENGER has started...\n");
+  //start chat log
+  int chat_log_file;
+  chat_log_file = open("chat_log.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); //happens once bc trunc
+  close(chat_log_file);
   //username prompt
   char * username = malloc (BUFFER_SIZE);
   printf("Type your username here: ");
@@ -20,7 +25,7 @@ int main(int argc, char *argv[] ) {
   }
 
   //handshake
-  printf("Waiting for connection...\n");
+  printf("Waiting for connections...\n");
   int listen_socket= server_setup();
   //init stuff
   int c = 0;
@@ -29,11 +34,11 @@ int main(int argc, char *argv[] ) {
   char buff[1025]="";
 while(1){
   //checking filedescriptable
-      printf("filedescriptable: ");
-      for(int z = 0; clients[z]; z++){
-        printf("%d, ", clients[z]);
-      }
-      printf("\n");
+      // printf("filedescriptable: ");
+      // for(int z = 0; clients[z]; z++){
+      //   printf("%d, ", clients[z]);
+      // }
+      // printf("\n");
   ///  printf("start of while\n");
     int i = 0;
     //select params; must be reset when reused
@@ -74,6 +79,7 @@ while(1){
               exit(0);
             }
         }
+
         //printf("Recieved from terminal: '%s'\n",buff);
     }
     else if(FD_ISSET(listen_socket, &read_fds)){
@@ -136,11 +142,11 @@ while(1){
             //shift down higher clients
             for (int j=n; clients[j] && j<9; j++){ //10 IS ARBITRARY
               //checking filedescriptable
-                  printf("filedescriptablemoment: ");
-                  for(int z = 0; clients[z]; z++){
-                    printf("%d, ", clients[z]);
-                  }
-                  printf("\n");
+                  // printf("filedescriptablemoment: ");
+                  // for(int z = 0; clients[z]; z++){
+                  //   printf("%d, ", clients[z]);
+                  // }
+                  // printf("\n");
             //  if(j < 10){
                 clients[j] = clients[j+1];
                 clients[9]=0;
@@ -179,44 +185,3 @@ while(1){
   }
 
 }
-
-
-
-
-//   //multi threading
-//   pid_t p;
-//   p = fork();
-//   if (p<0){
-//       printf("fork error");
-//       exit(1);
-//   }
-//   else if (p==0){//recv
-//     while(1){
-//       int dc_check = recvmessage(client_socket); //placeholder
-//       if (dc_check < 0){
-//         exit(0);
-//       }
-//     }
-//     close(client_socket);
-//     close(listen_socket);
-//     exit(0);
-//   }
-//   else{//send
-//     while(1){
-//       int status;
-//       int w_check = waitpid(p, &status, WNOHANG);
-//       if (w_check != 0 ){
-//         printf("Quitting Sending Loop WNOHANG\n");
-//         kill(p, SIGKILL);
-//         exit(0);
-//       }
-//       int dc_check = sendmessage(client_socket, username);
-//       if (dc_check < 0){
-//         kill(p, SIGKILL);
-//         exit(0);
-//       }
-//     }
-//     exit(0);
-//   }
-//
-// }

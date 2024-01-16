@@ -29,6 +29,16 @@ int sendmessage(int socket, char * username, char * input){
 
   //send
   int s_check = send(socket, package, sizeof(struct package), 0);
+  //chat chat_log
+  int chat_log_file;
+  chat_log_file = open("chat_log.txt", O_WRONLY | O_APPEND, 0644); //only adds
+  char * str = malloc(BUFFER_SIZE);
+  strcat(str, username);
+  strcat(str, ": ");
+  strcat(str, input);
+  int w = write(chat_log_file, str, BUFFER_SIZE);
+  close(chat_log_file);
+  err2(w, "writing");
   //check if disconnected
   if (s_check == 0){
     printf("socket closed.\n");

@@ -25,10 +25,10 @@ int main(int argc, char *argv[] ) {
   if(argc>1){
     IP=argv[1];
   }
-  printf("Waiting for connection...\n");
+  printf("CESSENGER has started...\nWaiting for connection...\n");
 
   int server_socket = client_tcp_handshake(IP);
-  printf("client connected.\n");
+  printf("Welcome to the chatroom! Start typing to send messages. Type '.d' to disconnect\n");
 
   //init
   fd_set read_fds;

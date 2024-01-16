@@ -23,6 +23,7 @@ messaging.o: messaging.c messaging.h
 
 clean:
 	@rm -f *.o
+	@rm -f *.txt
 	@rm -f host
 	@rm -f client
 	@rm -f *~
