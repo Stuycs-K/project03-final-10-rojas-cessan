@@ -7,7 +7,7 @@ Nelli Rojas-Cessa
        
 ### Project Description:
 
-This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom, which can be found using {ifconfig} on Terminal of the host computer. Every user has a username so they know who is sending certain messanges. The program also creates a chat log in a separate file which displays all the messsenges sent by all the users. 
+This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom, which can be found using {ifconfig} on Terminal of the host computer. Every user has a username so they know who is sending certain messanges. The program also creates a chat log in a separate file which displays all the messsenges sent by all the users. The program color coded as well.
   
 ### Instructions:
 Note: {} is used to show what is meant to be typed for clarification. Please type what is inside the brackets.
