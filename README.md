@@ -11,6 +11,7 @@ This is a chat program that allows you to communicate with multiple others users
   
 ### Instructions:
 Note: {} is used to show what is meant to be typed for clarification. Please type what is inside the brackets.
+
 How does the user install/compile/run the program?
 - To start server as a host, type the following in Terminal:
   - {make compile}
