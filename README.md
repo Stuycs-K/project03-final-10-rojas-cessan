@@ -7,7 +7,7 @@ Nelli Rojas-Cessa
        
 ### Project Description:
 
-This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom.
+This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom. Every user has a username so they know who is sending certain messanges.
   
 ### Instructions:
 How does the user install/compile/run the program.
@@ -25,3 +25,4 @@ How does the user interact with this program?
   
 Known Bugs/Specifications:
 - Host must use Ctrl-C to disconnect if not connected to any client.
+- May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
