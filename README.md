@@ -7,7 +7,7 @@ Nelli Rojas-Cessa
        
 ### Project Description:
 
-This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom, which can be found using {ifconfig} on Terminal of the host computer. Every user has a username so they know who is sending certain messanges. The program also creates a chat log in a separate file which displays all the messsenges sent by all the users. The program color coded as well.
+This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom, which can be found using {ifconfig} on Terminal of the host computer. Every user has a username so they know who is sending certain messanges. The program also creates a chat log in a separate file which displays all the messenges sent by all the users. The program is color coded as well.
   
 ### Instructions:
 Note: {} is used to show what is meant to be typed for clarification. Please type what is inside the brackets.
@@ -30,11 +30,13 @@ How does the user interact with this program?
 - To leave chat:
   - {.d} OR Ctrl-C
   - Host must use Ctrl-C to disconnect if not connected to any client.
-- To view chat log:
+- To view chat log (only on host computer):
   - {cat chat_log.txt}
   - Use a graphical file manager (like Finder on Mac) 
   
 Known Bugs/Specifications:
 - When using different computers, Marge and Lisa are not reliable as the host, and often fail to connect. As clients, they significantly lag, which can cause missing information. (Homer is generally good.)
-- If you spam messages or send in rapid succession, the chat log will include unwanted junk data.
+- The chat log will include unwanted junk data somewhat randomly, usually because of spam messaging or messenges sent in rapid succession.
+- When someone disconnects, the name of the person who left displayed may be incorrect. 
 - May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
+- Sending texts at the same time can create with information sent and chat log.
