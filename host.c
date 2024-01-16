@@ -3,7 +3,7 @@
 
 static void sighandler( int signo ){
     if (signo==SIGINT){
-        printf("QUITTING SERVER\n");
+        printf(BLU "QUITTING SERVER\n" RESET);
         exit(0);
     }
 }
@@ -145,41 +145,43 @@ while(1){
             clients[n] = -1;
             //shift down higher clients
             for (int j=n; clients[j] && j<9; j++){ //10 IS ARBITRARY
-              //checking filedescriptable
-                  // printf("filedescriptablemoment: ");
-                  // for(int z = 0; clients[z]; z++){
-                  //   printf("%d, ", clients[z]);
-                  // }
-                  // printf("\n");
-            //  if(j < 10){
+
+                clients[j] = clients[j+1];
+                clients[9]=0;
+            //  }
+            }
+
+            //exit(0);
+          }
+          else if (dc_check == SOCKETCLOSED){//SIGINT disconnect check
+            //tell others that someon left the chat
+            for (int j=0; clients[j]; j++){
+              if (j!=n){
+                //printf("It's working, sending %s's message\n", tempuser);
+                sendmessage(clients[j], tempuser, DCCODE, -1);
+              }
+            }
+            //remove from client list
+            clients[n] = -1;
+            //shift down higher clients
+            for (int j=n; clients[j] && j<9; j++){ //10 IS ARBITRARY
+
                 clients[j] = clients[j+1];
                 clients[9]=0;
             //  }
             }
             //exit(0);
-          }
-          if (dc_check == SOCKETCLOSED){//SIGINT disconnect check
-            //remove from client list
-            clients[n] = 0;
-            //shift down higher clients
-            for (int j=0; clients[j]; j++){
-              if ((j>=n)&&(j<sizeof(clients))){
-                if((clients[j]==0)&&(clients[j+1]!=0)){
-                  clients[j]=clients[j+1];
-                  clients[j+1] = 0;
-                }
-              }
-            }
-            //exit(0);
             //printf("exit?\n");
           }
-
-          //send to everyone else
-          for (int j=0; clients[j]; j++){
-            if (j!=n){
-              sendmessage(clients[j], tempuser, tempbuff, -1);
+          else{//normal
+            //send to everyone else
+            for (int j=0; clients[j]; j++){
+              if (j!=n){
+                sendmessage(clients[j], tempuser, tempbuff, -1);
+              }
             }
           }
+
       }
     }
     }
