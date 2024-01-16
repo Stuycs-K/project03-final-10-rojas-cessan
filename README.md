@@ -39,4 +39,4 @@ Known Bugs/Specifications:
 - The chat log will include unwanted junk data somewhat randomly, usually because of spam messaging or messenges sent in rapid succession.
 - When someone disconnects, it may interefere with the data displayed. It should eventually return to normal after a few back and forth messages.
 - May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
-- Sending texts at the same time can create with information sent and chat log.
+- Sending texts at the same time can create problems with information sent and chat log.
