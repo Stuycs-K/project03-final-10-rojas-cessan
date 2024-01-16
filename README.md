@@ -35,7 +35,6 @@ How does the user interact with this program?
   - Use a graphical file manager (like Finder on Mac) 
   
 Known Bugs/Specifications:
-- When using different computers, Marge and Lisa are not reliable as the host, and often fail to connect or lag, which can cause missing information. (Homer is generally good.)
+- When using different computers, Marge and Lisa are not reliable as the host, and often fail to connect. As clients, they significantly lag, which can cause missing information. (Homer is generally good.)
 - If you spam messages or send in rapid succession, the chat log will include unwanted junk data.
-- Chat log may repeat messages when communicating with multiple clients.
 - May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
