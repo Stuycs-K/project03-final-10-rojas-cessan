@@ -2,7 +2,7 @@
 
 ## Nelli
 Notes: 
-- The number of minutes in brackets refers to at-home work and doesn't include class time.
+- The number of minutes in brackets refers to at-home work and doesn't include class time. They are approximations.
 - When I sometimes refer to "multi," I mean it as in something related to using multiple sockets with select.
 
 ### 2024-01-03 - proposal
@@ -42,6 +42,6 @@ I made disconnect work in the way I want it to work so it server doesn't stop ev
 ### 2024-01-14 - disconnect messaging WEEKEND + LATE NIGHT COMMIT
 Disconnect now sends messages to other clients still running when someone disconnects, and host will shut down server if host disconnects. Spent most time trying to debug why communication stops after one person disconnects. [60 mins]
 
-### 2024-01-10 - title 
-descript. [XX mins]
+### 2024-01-15 - chat log and finishing touches WEEKEND + LATE NIGHT COMMIT
+I created a chat log that functions most of the time. It does repeat messages because the host sends multiple times, and writing to the chat log is done every time a message is sent. I tried to fix it with a boolean. Other last minute debugging and making the interface a little nicer. The Read Me file was also written. A lot of time spent testing and preparing the demo. In retrospect, my proposal was very optimistic! If I had a few more days I think I could have gotten most of it done. [200 mins]
 
