@@ -50,7 +50,7 @@ int main(int argc, char *argv[] ) {
             fgets(buff, sizeof(buff), stdin);
             //buff[strlen(buff)-1]=0;
            // printf("sending this buff: %s\n", buff);
-            int dc_check =  sendmessage(server_socket, username, buff);
+            int dc_check =  sendmessage(server_socket, username, buff, 0);
             if (dc_check < 0){
               exit(0);
             }

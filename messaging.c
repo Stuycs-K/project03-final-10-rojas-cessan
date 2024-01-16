@@ -40,7 +40,7 @@ int sendmessage(int socket, char * username, char * input, int firstsend){
 
 
   //chat chat_log
-  if (firstsend = 0){
+  if (firstsend == 0){
     int chat_log_file;
     chat_log_file = open("chat_log.txt", O_WRONLY | O_APPEND, 0644); //only adds
     char * str = malloc(BUFFER_SIZE);
