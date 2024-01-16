@@ -39,8 +39,8 @@ Both in class and at home: Debugged code so that you can now send and recieve be
 ### 2024-01-13 - disconnect works WEEKEND + LATE NIGHT COMMIT
 I made disconnect work in the way I want it to work so it server doesn't stop even if someone disconnects using ".d" or SIGINT. It's also my birthday today. :) [30 mins]
 
-### 2024-01-10 - title 
-descript. [XX mins]
+### 2024-01-14 - disconnect messaging WEEKEND + LATE NIGHT COMMIT
+Disconnect now sends messages to other clients still running when someone disconnects, and host will shut down server if host disconnects. Spent most time trying to debug why communication stops after one person disconnects. [60 mins]
 
 ### 2024-01-10 - title 
 descript. [XX mins]
