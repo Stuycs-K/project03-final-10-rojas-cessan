@@ -14,7 +14,7 @@ void printpackage(struct package * package){
 
 
 //sending messages
-int sendmessage(int socket, char * username, char * input){
+int sendmessage(int socket, char * username, char * input, int firstsend){
  // printf("SENDING MSGS\n");
   struct package * package = malloc ( sizeof(struct package));
   package = makepackage(package, username, input);
@@ -23,28 +23,34 @@ int sendmessage(int socket, char * username, char * input){
   if (strncmp(input, DISCONNECT, 2)==0){
     printf("You have left the chat.\n");
     int s_check = send(socket, package, sizeof(struct package), 0);
-    err2(s_check, "Sending\n");
+    //err2(s_check, "Sending\n");
+    free(package);
     return -1;
   }
-
   //send
   int s_check = send(socket, package, sizeof(struct package), 0);
-  //chat chat_log
-  int chat_log_file;
-  chat_log_file = open("chat_log.txt", O_WRONLY | O_APPEND, 0644); //only adds
-  char * str = malloc(BUFFER_SIZE);
-  strcat(str, username);
-  strcat(str, ": ");
-  strcat(str, input);
-  int w = write(chat_log_file, str, BUFFER_SIZE);
-  close(chat_log_file);
-  err2(w, "writing");
-  //check if disconnected
+  //check if disconnected socket
   if (s_check == 0){
     printf("socket closed.\n");
+    free(package);
     return SOCKETCLOSED;
   }
-  err2(s_check, "Sending\n");
+  //err2(s_check, "Sending\n");
+
+
+
+  //chat chat_log
+  if (firstsend = 0){
+    int chat_log_file;
+    chat_log_file = open("chat_log.txt", O_WRONLY | O_APPEND, 0644); //only adds
+    char * str = malloc(BUFFER_SIZE);
+    strcat(str, username);
+    strcat(str, ": ");
+    strcat(str, input);
+    int w = write(chat_log_file, str, BUFFER_SIZE);
+    close(chat_log_file);
+    err2(w, "writing");
+  }
   free(package);
   return 0;
 }
@@ -63,11 +69,13 @@ int recvmessage(int socket){
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     // printf("Real dc\n");
     //printf("%s has left the chat.\n", recieved->name);
+    free(recieved);
     return -1;
   }
   if (strcmp(recieved->MSG, DCCODE)==0){
     printf("It's wokring\n");
     printf("%s has left the chat.\n", recieved->name);
+    free(recieved);
     return 0;
   }
   //print
@@ -91,11 +99,13 @@ int recvmessagestring(int socket, char * tempuser, char * tempbuff){
   //disconnect
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     printf("%s has left the chat.\n", recieved->name);
+    free(recieved);
     return -1;
   }
   if (strcmp(recieved->MSG, DCCODE)==0){
     //printf("It's wokring\n");
     printf("%s has left the chat.\n", recieved->name);
+    free(recieved);
     return 0;
   }
   //print

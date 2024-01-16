@@ -20,7 +20,7 @@
 #define BUFFER_SIZE 1024
 #define SOCKETCLOSED 2
 void err2(int i, char*message);
-int sendmessage(int socket, char * username, char * input);
+int sendmessage(int socket, char * username, char * input, int firstsend);
 int recvmessage(int socket);
 int recvmessagestring(int socket, char * tempuser, char * tempbuff);
 struct package {char name[1024]; char MSG[1024];};

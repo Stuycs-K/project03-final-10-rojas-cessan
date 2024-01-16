@@ -73,7 +73,7 @@ while(1){
         fgets(buff, sizeof(buff), stdin);
         for (int d = 0; clients[d]; d++){
           //printf("sending to client %d\n", d);
-            int dc_check = sendmessage(clients[d], username, buff);
+            int dc_check = sendmessage(clients[d], username, buff, 0);
             if (dc_check < 0){
               printf("Chat ended.\n");
               exit(0);
@@ -134,7 +134,7 @@ while(1){
             for (int j=0; clients[j]; j++){
               if (j!=n){
                 printf("It's working, sending %s's message\n", tempuser);
-                sendmessage(clients[j], tempuser, DCCODE);
+                sendmessage(clients[j], tempuser, DCCODE, -1);
               }
             }
             //remove from client list
@@ -173,7 +173,7 @@ while(1){
           //send to everyone else
           for (int j=0; clients[j]; j++){
             if (j!=n){
-              sendmessage(clients[j], tempuser, tempbuff);
+              sendmessage(clients[j], tempuser, tempbuff, -1);
             }
           }
       }
