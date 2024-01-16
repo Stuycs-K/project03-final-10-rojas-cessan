@@ -7,22 +7,34 @@ Nelli Rojas-Cessa
        
 ### Project Description:
 
-This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom. Every user has a username so they know who is sending certain messanges.
+This is a chat program that allows you to communicate with multiple others users on different computers! It's similar to Messenger or WhatsApp. The maximum amount of users in one group chat is one host and eight other users. You must ask the host for their IP Address in real life to join their chatroom, which can be found using {ifconfig} on Terminal of the host computer. Every user has a username so they know who is sending certain messanges. The program also creates a chat log in a separate file which displays all the messsenges sent by all the users. 
   
 ### Instructions:
-How does the user install/compile/run the program.
+Note: {} is used to show what is meant to be typed for clarification. Please type what is inside the brackets.
+How does the user install/compile/run the program?
 - To start server as a host, type the following in Terminal:
-  - make compile
-  - ./host
-- To join as another user, type the following in Terminal:
-  - make compile
-  - ./client ENTER_IP_ADDRESS_OF_HOST_HERE
+  - {make compile}
+  - {./host}
+  - Type in your username when prompted
+  - The host must initiate the server (do this by following steps above) before others connect.
+- To join as another user on a different computer, type the following in Terminal:
+  - {make compile}
+  - {./client ENTER_IP_ADDRESS_OF_HOST_HERE}
+  - Type in your username when prompted
+- To join on the same computer the IP Address is not necessary, so this would work:
+  - {./client}
   
 How does the user interact with this program?
-- To send texts, type in Terminal
+- To send texts: type in Terminal and press enter to send
 - To leave chat:
-  - .d OR Ctrl-C
+  - {.d} OR Ctrl-C
+  - Host must use Ctrl-C to disconnect if not connected to any client.
+- To view chat log:
+  - {cat chat_log.txt}
+  - Use a graphical file manager (like Finder on Mac) 
   
 Known Bugs/Specifications:
-- Host must use Ctrl-C to disconnect if not connected to any client.
+- When using different computers, Marge and Lisa are not reliable as the host, and often fail to connect or lag, which can cause missing information. (Homer is generally good.)
+- If you spam messages or send in rapid succession, the chat log will include unwanted junk data.
+- Chat log may repeat messages when communicating with multiple clients.
 - May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
