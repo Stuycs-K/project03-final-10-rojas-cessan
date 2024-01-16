@@ -37,6 +37,6 @@ How does the user interact with this program?
 Known Bugs/Specifications:
 - When using different computers, Marge and Lisa are not reliable as the host, and often fail to connect. As clients, they significantly lag, which can cause missing information. (Homer is generally good.)
 - The chat log will include unwanted junk data somewhat randomly, usually because of spam messaging or messenges sent in rapid succession.
-- When someone disconnects, the name of the person who left displayed may be incorrect. 
+- When someone disconnects, it may interefere with the data displayed. It should eventually return to normal after a few back and forth messages.
 - May encounter issues when usernames or messages are exceeding large (around 1024 characters and more).
 - Sending texts at the same time can create with information sent and chat log.
