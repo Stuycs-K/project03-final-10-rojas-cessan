@@ -28,6 +28,12 @@ int main(int argc, char *argv[] ) {
   fd_set read_fds;
   char buff[1025]="";
 while(1){
+  //checking filedescriptable
+      printf("filedescriptable: ");
+      for(int z = 0; clients[z]; z++){
+        printf("%d, ", clients[z]);
+      }
+      printf("\n");
   ///  printf("start of while\n");
     int i = 0;
     //select params; must be reset when reused
@@ -117,6 +123,7 @@ while(1){
 
           //err(dc_check, "read listen"); //for some reason i cant have this
           if (dc_check < 0){ //.d disconnect check
+            printf("someoboy left\n");
             //tell others that someon left the chat
             for (int j=0; clients[j]; j++){
               if (j!=n){
@@ -125,15 +132,19 @@ while(1){
               }
             }
             //remove from client list
-            clients[n] = 0;
+            clients[n] = -1;
             //shift down higher clients
-            for (int j=0; clients[j]; j++){
-              if ((j>=n)&&(j<sizeof(clients))){
-                if((clients[j]==0)&&(clients[j+1]!=0)){
-                  clients[j]=clients[j+1];
-                  clients[j+1] = 0;
-                }
-              }
+            for (int j=n; clients[j] && j<9; j++){ //10 IS ARBITRARY
+              //checking filedescriptable
+                  printf("filedescriptablemoment: ");
+                  for(int z = 0; clients[z]; z++){
+                    printf("%d, ", clients[z]);
+                  }
+                  printf("\n");
+            //  if(j < 10){
+                clients[j] = clients[j+1];
+                clients[9]=0;
+            //  }
             }
             //exit(0);
           }
