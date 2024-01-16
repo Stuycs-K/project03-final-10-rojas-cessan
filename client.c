@@ -3,7 +3,7 @@
 
 static void sighandler( int signo ){
     if (signo==SIGINT){
-        printf("QUITTING CLIENT\n");
+        printf(BLU "QUITTING CLIENT\n" RESET);
         //remove(3);
         exit(0);
     }
@@ -14,7 +14,7 @@ int main(int argc, char *argv[] ) {
 
   //username
   char * username = malloc (BUFFER_SIZE);
-  printf("Type your username here: ");
+  printf(BLU "Type your username here: " RESET);
   fflush(stdout);
   fgets(username, BUFFER_SIZE, stdin);
   if (strchr(username, '\n')!=NULL){ //if token ends in newline
@@ -25,11 +25,12 @@ int main(int argc, char *argv[] ) {
   if(argc>1){
     IP=argv[1];
   }
-  printf("CESSENGER has started...\nWaiting for connection...\n");
+  printf(CYN "CESSENGER " RESET);
+  printf(BLU "has started...\nWaiting for connection...\n");
 
   int server_socket = client_tcp_handshake(IP);
-  printf("Welcome to the chatroom! Start typing to send messages. Type '.d' to disconnect\n");
-
+  printf("Welcome to the chatroom! Start typing to send messages. Type '.d' to disconnect" RESET);
+  printf("\n");
   //init
   fd_set read_fds;
   char buff[1025]="";
@@ -46,8 +47,9 @@ int main(int argc, char *argv[] ) {
 
   //if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-          //printf("STDIN\n");
+          //printf("%s", BLU);
             fgets(buff, sizeof(buff), stdin);
+          //printf("%s", RESET);
             //buff[strlen(buff)-1]=0;
            // printf("sending this buff: %s\n", buff);
             int dc_check =  sendmessage(server_socket, username, buff, 0);

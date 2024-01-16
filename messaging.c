@@ -21,7 +21,8 @@ int sendmessage(int socket, char * username, char * input, int firstsend){
 
 //disconnect
   if (strncmp(input, DISCONNECT, 2)==0){
-    printf("You have left the chat.\n");
+    printf(BLU "You have left the chat." RESET);
+    printf("\n");
     int s_check = send(socket, package, sizeof(struct package), 0);
     //err2(s_check, "Sending\n");
     free(package);
@@ -31,7 +32,8 @@ int sendmessage(int socket, char * username, char * input, int firstsend){
   int s_check = send(socket, package, sizeof(struct package), 0);
   //check if disconnected socket
   if (s_check == 0){
-    printf("socket closed.\n");
+    printf(BLU "A socket has closed." RESET);
+    printf("\n");
     free(package);
     return SOCKETCLOSED;
   }
@@ -68,20 +70,21 @@ int recvmessage(int socket){
   //disconnect
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
     // printf("Real dc\n");
-    //printf("%s has left the chat.\n", recieved->name);
+    printf("%s%s has left the chat.%s\n", BLU, recieved->name, RESET);
     free(recieved);
     return -1;
   }
   if (strcmp(recieved->MSG, DCCODE)==0){
-    printf("It's wokring\n");
-    printf("%s has left the chat.\n", recieved->name);
+    //printf("It's wokring\n");
+    printf("%s%s has left the chat.%s\n", BLU, recieved->name, RESET);
     free(recieved);
     return 0;
   }
   //print
-  //printf("Normie\n");
-  int p_check = printf("%s: %s", recieved->name, recieved->MSG);
-  err2(p_check, "printing\n");
+  //printf(RED);
+  printf( "%s%s:%s %s", RED, recieved->name, RESET, recieved->MSG);
+  //printf(RESET);
+  //err2(p_check, "printing\n");
   free(recieved);
   return 0;
 }
@@ -98,19 +101,19 @@ int recvmessagestring(int socket, char * tempuser, char * tempbuff){
 
   //disconnect
   if (strncmp(recieved->MSG, DISCONNECT, 2)==0){
-    printf("%s has left the chat.\n", recieved->name);
+    printf("%s%s has left the chat.%s\n", BLU, recieved->name, RESET);
     free(recieved);
     return -1;
   }
   if (strcmp(recieved->MSG, DCCODE)==0){
     //printf("It's wokring\n");
-    printf("%s has left the chat.\n", recieved->name);
+    printf("%s%s has left the chat.%s\n", BLU, recieved->name, RESET);
     free(recieved);
     return 0;
   }
   //print
-  int p_check = printf("%s: %s", recieved->name, recieved->MSG);
-  err2(p_check, "printing\n");
+  printf( "%s%s:%s %s", RED, recieved->name, RESET, recieved->MSG);
+  //err2(p_check, "printing\n");
   strcpy(tempuser, recieved->name);
   strcpy(tempbuff, recieved->MSG);
   free(recieved);

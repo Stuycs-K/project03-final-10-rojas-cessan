@@ -10,14 +10,15 @@ static void sighandler( int signo ){
 
 int main(int argc, char *argv[] ) {
   signal(SIGINT, sighandler);
-  printf("CESSENGER has started...\n");
+  printf(CYN "CESSENGER " BLU);
+  printf("has started...\n");
   //start chat log
   int chat_log_file;
   chat_log_file = open("chat_log.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); //happens once bc trunc
   close(chat_log_file);
   //username prompt
   char * username = malloc (BUFFER_SIZE);
-  printf("Type your username here: ");
+  printf("Type your username here: " RESET);
   fflush(stdout);
   fgets(username, BUFFER_SIZE, stdin);
   if (strchr(username, '\n')!=NULL){ //if token ends in newline
@@ -25,7 +26,8 @@ int main(int argc, char *argv[] ) {
   }
 
   //handshake
-  printf("Waiting for connections...\n");
+  printf(BLU "Waiting for connections..." RESET);
+  printf("\n");
   int listen_socket= server_setup();
   //init stuff
   int c = 0;
@@ -131,7 +133,7 @@ while(1){
 
           //err(dc_check, "read listen"); //for some reason i cant have this
           if (dc_check < 0){ //.d disconnect check
-            printf("someoboy left\n");
+            //printf("someoboy left\n");
             //tell others that someon left the chat
             for (int j=0; clients[j]; j++){
               if (j!=n){
