@@ -71,13 +71,15 @@ while(1){
       // printf("You: ");
       //  fflush(stdout);
         fgets(buff, sizeof(buff), stdin);
+        int boolean = 0;
         for (int d = 0; clients[d]; d++){
           //printf("sending to client %d\n", d);
-            int dc_check = sendmessage(clients[d], username, buff, 0);
+            int dc_check = sendmessage(clients[d], username, buff, boolean);
             if (dc_check < 0){
               printf("Chat ended.\n");
               exit(0);
             }
+            boolean = -1;
         }
 
         //printf("Recieved from terminal: '%s'\n",buff);
@@ -133,7 +135,7 @@ while(1){
             //tell others that someon left the chat
             for (int j=0; clients[j]; j++){
               if (j!=n){
-                printf("It's working, sending %s's message\n", tempuser);
+                //printf("It's working, sending %s's message\n", tempuser);
                 sendmessage(clients[j], tempuser, DCCODE, -1);
               }
             }
