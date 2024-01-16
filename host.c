@@ -41,7 +41,6 @@ while(1){
       //   printf("%d, ", clients[z]);
       // }
       // printf("\n");
-  ///  printf("start of while\n");
     int i = 0;
     //select params; must be reset when reused
     FD_ZERO(&read_fds);
@@ -55,7 +54,6 @@ while(1){
     }
 
     //select
-
     //printf("fds: %d\n", (listen_socket+max+1)); //checking fd table
     i = select(max+1, &read_fds, NULL, NULL, NULL);
 //listen_socket+max
@@ -70,21 +68,18 @@ while(1){
             //   printf("%d, ", clients[z]);
             // }
             // printf("\n");
-      // printf("You: ");
-      //  fflush(stdout);
         fgets(buff, sizeof(buff), stdin);
         int boolean = 0;
         for (int d = 0; clients[d]; d++){
           //printf("sending to client %d\n", d);
             int dc_check = sendmessage(clients[d], username, buff, boolean);
             if (dc_check < 0){
-              printf("Chat ended.\n");
+              printf(BLU "Chat ended.\n" RESET);
               exit(0);
             }
             boolean = -1;
         }
 
-        //printf("Recieved from terminal: '%s'\n",buff);
     }
     else if(FD_ISSET(listen_socket, &read_fds)){
      // printf("in socket listen\n");
@@ -124,8 +119,6 @@ while(1){
       if(FD_ISSET(clients[n], &read_fds)){
       // if socket CLIENTS
 
-          //printf("Connected, waiting for data.\n");
-
           //read the whole buff
           char tempuser[BUFFER_SIZE];
           char tempbuff[BUFFER_SIZE];
@@ -133,7 +126,6 @@ while(1){
 
           //err(dc_check, "read listen"); //for some reason i cant have this
           if (dc_check < 0){ //.d disconnect check
-            //printf("someoboy left\n");
             //tell others that someon left the chat
             for (int j=0; clients[j]; j++){
               if (j!=n){
